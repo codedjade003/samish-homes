@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaBars } from "react-icons/fa";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -40,7 +41,7 @@ export default function Navbar() {
               onClick={() => setMobileOpen(!mobileOpen)}
               className="p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:ring-blue-500"
             >
-              <i className="fas fa-bars" />
+            <FaBars className="h-5 w-5" />
             </button>
           </div>
         </div>
