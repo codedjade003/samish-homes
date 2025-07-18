@@ -3,6 +3,7 @@ const {
   registerUser,
   loginUser,
   getProfile,
+  forgotPassword,
 } = require('../controllers/authController');
 
 const { protect, authorizeRole } = require('../middleware/authMiddleware');
@@ -12,6 +13,7 @@ const router = express.Router();
 router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.get('/profile', protect, getProfile);
+router.post('/forgot-password', forgotPassword);
 
 // Example protected route (admin only)
 router.get(

@@ -52,3 +52,25 @@ exports.getProfile = async (req, res) => {
   const user = await User.findById(req.user.id).select('-password');
   res.json(user);
 };
+
+// POST /api/auth/forgot-password
+exports.forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    // For security: don't reveal if user doesn't exist
+    if (!user) {
+      return res.status(200).json({ message: 'If this email exists, a reset link will be sent.' });
+    }
+
+    // 🔒 TODO: Generate reset token and email link later
+    console.log(`🧪 Password reset requested for: ${email}`);
+
+    return res.status(200).json({ message: 'If this email exists, a reset link will be sent.' });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: 'Server error' });
+  }
+};
