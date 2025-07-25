@@ -1,6 +1,36 @@
 const User = require('../models/User');
 const generateToken = require('../utils/generateToken');
 
+// @route PUT /api/agent/profile
+// @desc  Update agent's own profile
+// @access Private
+exports.updateProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id); // req.user comes from auth middleware
+
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.phone = req.body.phone || user.phone;
+    user.photo = req.body.photo || user.photo;
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      phone: updatedUser.phone,
+      photo: updatedUser.photo,
+      role: updatedUser.role,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+};
+
 // POST /api/auth/register
 exports.registerUser = async (req, res) => {
   const { name, email, phone, password } = req.body;
@@ -12,18 +42,20 @@ exports.registerUser = async (req, res) => {
     // Enforce public-only registration
     const user = await User.create({ name, email, phone, password, role: 'public' });
 
-    res.status(201).json({
+  res.status(201).json({
+    user: {
       _id: user._id,
       name: user.name,
       email: user.email,
       role: user.role,
-      token: generateToken(user._id),
-    });
+    },
+    token: generateToken(user._id),
+  });
+
   } catch (err) {
     res.status(500).json({ message: 'Server error', error: err.message });
   }
 };
-
 
 // Login user
 exports.loginUser = async (req, res) => {
@@ -36,10 +68,12 @@ exports.loginUser = async (req, res) => {
     }
 
     res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
       token: generateToken(user._id),
     });
   } catch (err) {

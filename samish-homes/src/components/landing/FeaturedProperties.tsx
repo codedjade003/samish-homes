@@ -35,7 +35,7 @@ const properties = [
 
 export default function FeaturedProperties() {
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <section id="featured" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="text-center">
         <h2 className="text-3xl font-bold text-gray-900">Featured Properties</h2>
         <p className="mt-2 text-lg text-gray-600">Browse our selection of premium properties</p>

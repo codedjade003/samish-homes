@@ -3,19 +3,26 @@ const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
+    name: { type: String, required: false },
     email: {
       type: String,
       required: true,
       unique: true,
       match: [/^\S+@\S+\.\S+$/, 'Please use a valid email address'],
     },
-    phone: { type: String },
     password: { type: String, required: true },
     role: {
       type: String,
       enum: ['admin', 'agent', 'public'],
       default: 'public',
+    },
+    phone: {
+      type: String,
+      default: '',
+    },
+    photo: {
+      type: String, // URL to photo (can be local or cloud storage)
+      default: '',
     },
   },
   { timestamps: true }

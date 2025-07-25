@@ -4,6 +4,7 @@ const {
   loginUser,
   getProfile,
   forgotPassword,
+  updateProfile,
 } = require('../controllers/authController');
 
 const { protect, authorizeRole } = require('../middleware/authMiddleware');
@@ -14,6 +15,8 @@ router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.get('/profile', protect, getProfile);
 router.post('/forgot-password', forgotPassword);
+
+router.put('/profile', protect, updateProfile);
 
 // Example protected route (admin only)
 router.get(

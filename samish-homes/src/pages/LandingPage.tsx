@@ -8,9 +8,10 @@ import Footer from "../components/landing/Footer";
 import { useAuth } from "../context/AuthContext";
 
 export default function LandingPage() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
 
-  if (isAuthenticated) return null; // Auto-redirect will be handled in router
+  if (loading) return null; // Wait for auth to resolve
+  if (isAuthenticated) return null; // Optional: you could also redirect
 
   return (
     <div className="min-h-screen">

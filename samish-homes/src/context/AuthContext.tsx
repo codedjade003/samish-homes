@@ -6,6 +6,8 @@ interface User {
   name: string;
   email: string;
   role: "admin" | "agent" | "public";
+  phone: string;
+  photo: string;
 }
 
 interface AuthContextType {
@@ -25,7 +27,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Load and verify token
+  const API_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (!storedToken) {
@@ -34,7 +37,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     axios
-      .get("http://localhost:5000/api/auth/profile", {
+      .get(`${API_URL}/api/auth/profile`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((res) => {
@@ -42,7 +45,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUser(res.data);
       })
       .catch(() => {
-        // Token invalid or expired — wipe storage
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         setToken(null);
@@ -51,7 +53,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [API_URL]);
+    useEffect(() => {
+    console.log("AuthContext loaded:");
+    console.log("Token:", token);
+    console.log("User:", user);
+    console.log("isAuthenticated:", !!user);
+  }, [user, token]);
+
 
   const login = ({ user, token }: { user: User; token: string }) => {
     setUser(user);

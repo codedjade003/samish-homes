@@ -1,6 +1,6 @@
 export default function Hero() {
   return (
-    <section className="bg-gradient-to-br from-blue-800 to-blue-900 text-white">
+    <section id="hero" className="bg-gradient-to-br from-blue-800 to-blue-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         <div className="md:flex md:items-center md:justify-between">
           {/* Text Section */}
@@ -13,9 +13,10 @@ export default function Hero() {
             </p>
             <div className="mt-8">
               <button
-                onClick={() =>
-                  window.dispatchEvent(new CustomEvent("open-auth-modal", { detail: "register" }))
-                }
+              onClick={() => {
+                const cta = document.getElementById("cta-section");
+                cta?.scrollIntoView({ behavior: "smooth" });
+              }}
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-blue-600 bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
               >
                 Get Started
