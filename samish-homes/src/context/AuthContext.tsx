@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 
 interface User {
@@ -20,7 +20,7 @@ interface AuthContextType {
   role: string | null;
 }
 
-const AuthContext = createContext<AuthContextType>({} as AuthContextType);
+export const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -54,13 +54,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setLoading(false);
       });
   }, [API_URL]);
-    useEffect(() => {
-    console.log("AuthContext loaded:");
-    console.log("Token:", token);
-    console.log("User:", user);
-    console.log("isAuthenticated:", !!user);
-  }, [user, token]);
-
 
   const login = ({ user, token }: { user: User; token: string }) => {
     setUser(user);
@@ -92,5 +85,3 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     </AuthContext.Provider>
   );
 };
-
-export const useAuth = () => useContext(AuthContext);

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/useAuth";
 import { FaArrowLeft } from "react-icons/fa";
 import axios from "axios";
 import Navbar from "../components/landing/Navbar";

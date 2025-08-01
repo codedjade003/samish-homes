@@ -1,7 +1,6 @@
 // src/routes/AgentRoutes.tsx
 import { Route } from "react-router-dom";
 import ProtectedRoute from "./components/auth/ProtectedRoutes";
-import Layout from "./layouts/AgentLayout";
 import Dashboard from "./components/landing/AgentDashboard";
 import Listings from "./components/agent/pages/Listings";
 import Clients from "./components/agent/pages/Clients";

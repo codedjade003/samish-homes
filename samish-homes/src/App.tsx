@@ -10,6 +10,7 @@ import SellerForm from "./pages/SellerForm";
 // Protected Route Groups
 import AdminRoutes from "./AdminRoutes";
 import AgentRoutes from "./AgentRoutes";
+import AffiliateRoutes from "./AffiliateRoutes";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         {/* Admin and Agent Routes */}
         {AdminRoutes()}
         {AgentRoutes()}
+        {AffiliateRoutes()}
       </Routes>
     </Router>
   );

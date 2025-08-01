@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import logo from '../../../assets/logo.png';
-import { useAuth } from '../../../context/AuthContext'; // ✅ adjust path if needed
+import { useAuth } from '../../../context/useAuth'; // ✅ adjust path if needed
 
 type NavbarProps = {
   onMobileMenuToggle?: (isOpen: boolean) => void;

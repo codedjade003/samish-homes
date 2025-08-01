@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/useAuth";
 import Navbar from "../components/landing/Navbar";
 import Hero from "../components/landing/Hero";
 import FeaturedProperties from "../components/landing/FeaturedProperties";
@@ -5,13 +8,20 @@ import WhyChooseUs from "../components/landing/WhyChooseUs";
 import Testimonials from "../components/landing/Testimonials";
 import CTA from "../components/landing/CTA";
 import Footer from "../components/landing/Footer";
-import { useAuth } from "../context/AuthContext";
 
 export default function LandingPage() {
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, user, loading } = useAuth();
+  const navigate = useNavigate();
 
-  if (loading) return null; // Wait for auth to resolve
-  if (isAuthenticated) return null; // Optional: you could also redirect
+  useEffect(() => {
+    if (!loading && isAuthenticated) {
+      if (user?.role === "admin") navigate("/admin/dashboard");
+      else if (user?.role === "agent") navigate("/agent/dashboard");
+      else navigate("/"); // Default (or public dashboard if you have)
+    }
+  }, [loading, isAuthenticated, user, navigate]);
+
+  if (loading || isAuthenticated) return null;
 
   return (
     <div className="min-h-screen">
